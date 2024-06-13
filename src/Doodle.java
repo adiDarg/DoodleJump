@@ -1,67 +1,35 @@
-import java.util.List;
-import java.util.Random;
+import java.awt.*;
 
-public class Doodle {
-    private int x,y;
-    private int maxHeightReached;
-    private int currentHeight;
-    private final int WIDTH = 10;
-    private final int HEIGHT = 10;
-    private double speed;
-    private final int GRAVITY = -10;
-    public Doodle(){
-        x = 10;
-        y = 10;
-        speed = 0;
-        maxHeightReached = y;
-        currentHeight = y;
+public class Doodle extends gameObject {
+    private boolean alive;
+
+    public Doodle() {
+        super(Window.WIDTH/2,600,20,80);
+        this.alive = true;
     }
-    private void jump(){
-        speed = 15;
+
+    public void paint (Graphics graphics) {
+        graphics.setColor(Color.blue);
+        graphics.fillRect(x,y,width,height);
     }
-    public void moveRight(){
-        x++;
+
+    public gameObject getDoodleAsCharacter () {
+        return new gameObject(this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
-    public void moveLeft(){
-        x--;
+    public boolean isAlive () {
+        return this.alive;
     }
-    public void moveVertically(double deltaSeconds, List<Platform> platformList, int screenHeight, int screenWidth){
-        for (Platform platform: platformList){
-            if (doodleAlignedWithPlatform(platform,deltaSeconds)){
-                jump();
-                break;
-            }
-        }
-        y += (int) (speed*deltaSeconds);
-        currentHeight += (int) (speed*deltaSeconds);
-        if (currentHeight > maxHeightReached){
-            maxHeightReached = currentHeight;
-        }
-        speed -= GRAVITY*deltaSeconds;
-        if (y > screenHeight){
-            adjustScreen(screenHeight,screenWidth,platformList);
-        }
+
+    public void die () {
+        this.alive = false;
     }
-    private void adjustScreen(int screenHeight, int screenWidth, List<Platform> platformList){
-        int yDifference = y - screenHeight;
-        y = screenHeight-this.HEIGHT;
-        Random random = new Random();
-        for (Platform platform: platformList){
-            platform.lower(yDifference);
-        }
-        for (int i = 1; i <= random.nextInt(1, yDifference); i++){
-            Platform newPlatform = new Platform(random.nextInt(3,10),2); //HARD-CODED
-            newPlatform.addToList(platformList,y-yDifference,screenHeight,screenWidth);
-        }
+
+    public void dieMove (Graphics graphics) {
     }
-    public boolean hasLost(){
-        return y < 0;
+    public void Jump() {
     }
-    private boolean doodleAlignedWithPlatform(Platform platform, double deltaSeconds){
-        return (this.x >= platform.getX() && this.x <= platform.getX() + platform.width) &&
-                (this.y - platform.height < Math.abs(speed*deltaSeconds) && speed < 0);
-    }
-    public void paint(){
-        //paint doodle character
+    public void dissmenal() {
+        System.exit(22);
     }
 }
+
