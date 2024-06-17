@@ -64,6 +64,7 @@ public class InstructionsPanel extends JPanel {
         returnToMenu.setBorderPainted(false);
         returnToMenu.setFocusPainted(false);
         add(returnToMenu);
+
         setVisible(false);
     }
     private void addLineToBody(String text, int lineNumber){
