@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -24,7 +25,8 @@ public class InstructionsPanel extends JPanel {
         JLabel head = new JLabel("INSTRUCTIONS", SwingConstants.CENTER);
         head.setBounds(0, 0, screenWidth, HEAD_LINE_LENGTH);
 
-        File instructionsBody = new File("src/Instructions");
+        URL instructionsBodyURL = (Objects.requireNonNull(getClass().getResource("Instructions")));
+        File instructionsBody = new File(Objects.requireNonNull(instructionsBodyURL.getFile()));
         Scanner reader = null;
         try {
             reader = new Scanner(instructionsBody);
@@ -54,8 +56,7 @@ public class InstructionsPanel extends JPanel {
         for (JLabel label: body){
             this.add(label);
         }
-
-        ImageIconButton returnToMenu = new ImageIconButton(new ImageIcon("src\\gameImages\\Doodle Jump\\menu.png"), new ImageIcon("src/gameImages/Doodle Jump/menu-on.png"));
+        ImageIconButton returnToMenu = new ImageIconButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/menu.png"))), new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/menu-on.png"))));
         returnToMenu.scaleIcons(120,50);
         returnToMenu.addActionListener((event)->{
             window.switchBetweenMenuAndInstructions();

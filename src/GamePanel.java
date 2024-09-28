@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GamePanel extends JPanel {
     private final Doodle doodle;
@@ -52,7 +53,7 @@ public class GamePanel extends JPanel {
         displayScore.setBounds(0,0,300,40);
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/al_seana/al-seana.ttf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream("/al_seana/al-seana.ttf"))).deriveFont(30f);
         } catch (FontFormatException | IOException e) {
             customFont = new Font("Serif", Font.PLAIN, 30);
         }
