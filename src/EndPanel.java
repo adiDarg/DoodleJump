@@ -39,9 +39,9 @@ public class EndPanel extends JPanel {
         this.add(head);
         this.add(body);
 
-        ImageIconButton playAgainButton = createButton(new ImageIcon("src\\gameImages\\Doodle Jump\\play-again.png"),new ImageIcon("src\\gameImages\\Doodle Jump\\play-again-on.png"),WIDTH/4 ,100 + HEAD_LINE_LENGTH + BODY_LINE_LENGTH + 2 * PADDING, 1);
+        ImageIconButton playAgainButton = createButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/play-again.png"))),new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/play-again-on.png"))),WIDTH/4 ,100 + HEAD_LINE_LENGTH + BODY_LINE_LENGTH + 2 * PADDING, 1);
         playAgainButton.addActionListener((event)->{window.newGame();});
-        ImageIconButton exitButton = createButton(new ImageIcon("src\\gameImages\\Doodle Jump\\exit-game.png"), new ImageIcon("src\\gameImages\\Doodle Jump\\exit-game-on.png"),3 * WIDTH / 4 - playAgainButton.getIconWidth(), 100 + HEAD_LINE_LENGTH + BODY_LINE_LENGTH + 2 * PADDING, 1);
+        ImageIconButton exitButton = createButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/exit-game.png"))), new ImageIcon(Objects.requireNonNull(getClass().getResource("/gameImages/Doodle Jump/exit-game-on.png"))),3 * WIDTH / 4 - playAgainButton.getIconWidth(), 100 + HEAD_LINE_LENGTH + BODY_LINE_LENGTH + 2 * PADDING, 1);
         exitButton.addActionListener((event)->window.dispose());
         this.add(playAgainButton);
         this.add(exitButton);
