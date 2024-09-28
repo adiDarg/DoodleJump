@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -25,16 +26,23 @@ public class InstructionsPanel extends JPanel {
         JLabel head = new JLabel("INSTRUCTIONS", SwingConstants.CENTER);
         head.setBounds(0, 0, screenWidth, HEAD_LINE_LENGTH);
 
-        URL instructionsBodyURL = (Objects.requireNonNull(getClass().getResource("Instructions")));
-        File instructionsBody = new File(Objects.requireNonNull(instructionsBodyURL.getFile()));
-        Scanner reader = null;
+        URL instructionsBodyURL = getClass().getResource("/Instructions");
+        if (instructionsBodyURL == null) {
+            throw new IllegalArgumentException("Resource 'Instructions' not found");
+        }
+
+        InputStream instructionsBody = null;
         try {
-            reader = new Scanner(instructionsBody);
-        } catch (Exception ignored){}
+            instructionsBody = instructionsBodyURL.openStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scanner reader = null;
+        reader = new Scanner(instructionsBody);
         body = new LinkedList<>();
         int lineNumber = 1;
 
-        while (reader != null && reader.hasNext()){
+        while (reader.hasNext()){
             addLineToBody(reader.nextLine(),lineNumber);
             lineNumber++;
         }
